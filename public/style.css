@@ -1,0 +1,141 @@
+body {
+  font-family: cursive;
+  /* background-color: #008c8c; */
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+h1 {
+  color: #E63946;
+  text-align: center;
+  font-size: 50px;
+  text-decoration: underline;
+}
+h2 {
+  color: #e74488;
+  text-align: center;
+  font-size: 20px;
+}
+.form-container {
+  max-width: 500px;
+  margin: 50px auto;
+  background-color: #ffffff; /* White */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.form-group {
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+}
+input[type="submit"] {
+  background-color: #e74488; /* Pinkish */
+  color: #ffffff; /* White */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease; /* Adding transition for smooth effect */
+}
+input[type="submit"]:hover {
+  background-color: #E63946; /* Cherry red */
+  border-radius: 16px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+}
+
+#loading {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.7); /* Creamy */
+  z-index: 1000;
+  text-align: center;
+  padding-top: 20%;
+  margin-top: 50px;
+}
+#loading img {
+  width: 200px; /* Adjust the size of the loading animation */
+  height: 200px;
+}
+#result {
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  padding: 10px;
+  background-color: #f5f5f5; /* Light gray */
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+#op {
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 10px;
+  font-size: 40px;
+  color: #e74488;
+  text-align: center;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#blinkingHeader {
+  animation: blink 0.5s ease-in-out 5; /* 0.5-second blinking animation, repeating 5 times */
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  appearance: none; /* Remove default arrow */
+  -webkit-appearance: none; /* Safari and Chrome */
+  -moz-appearance: none; /* Firefox */
+  cursor: pointer;
+}
+
+select:hover,
+select:focus {
+  border-color: #66afe9;
+  /* background-color: antiquewhite; */
+}
+
+#btn {
+  border-radius: 1px solid black;
+  outline: none;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+

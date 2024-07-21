@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vi-De</title>
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="stylesheet" href="/style.css" />
+    <script>
+      function handleSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+
+        // Show loading animation
+        document.getElementById("loading").style.display = "block";
+
+        fetch("/extract", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById("text").value = data;
+            const summaryList = document.getElementById("summaryList");
+            summaryList.innerHTML = ""; // Clear previous bullet points
+            const bulletPoints = data.split("- "); // Split the data by the delimiter "- "
+            bulletPoints.forEach((point) => {
+              const trimmedPoint = point.trim(); // Remove any leading or trailing whitespace
+              if (trimmedPoint) {
+                // Check if the bullet point is not empty
+                const listItem = document.createElement("li");
+                listItem.textContent = trimmedPoint;
+                summaryList.appendChild(listItem);
+              }
+            });
+            document.getElementById("op").style.display = "block";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("summaryList").style.display = "block"; // Ensure the list is displayed
+            document.getElementById("btn").style.display = "block";
+          })
+          .catch((error) => console.error("Error:", error))
+          .finally(() => {
+            // Hide loading animation after request is completed
+            document.getElementById("loading").style.display = "none";
+          });
+      }
+
+      function toggleSpeechAndVideo() {
+      const text = document.getElementById("text").value;
+      const synth = window.speechSynthesis;
+      const utterance = new SpeechSynthesisUtterance(text);
+      const video = document.getElementById("video");
+
+      if (synth.speaking) {
+        synth.cancel();
+        video.pause();
+      } else {
+        if (!text) {
+          alert("Please enter some text to convert to speech.");
+          return;
+        }
+
+        synth.speak(utterance);
+        video.play();
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <h1 id="blinkingHeader">Vi-De</h1>
+    <h2>Extract Summary from Video</h2>
+    <div class="form-container">
+      <form
+        id="uploadForm"
+        action="/extract"
+        enctype="multipart/form-data"
+        method="post"
+        onsubmit="handleSubmit(event)"
+      >
+        <div class="form-group">
+          <input type="file" name="video" required />
+          <label for="summaryType">Choose summary type:</label>
+          <select id="summaryType" name="summaryType">
+            <option value="bullets">Bullet Points</option>
+            <option value="paragraph">Paragraphs</option>
+            <option value="headline">Headline</option>
+          </select>
+          <input type="submit" value="Get me the stats!" />
+        </div>
+      </form>
+      <div class="container">
+        <textarea
+          id="text"
+          placeholder="Enter text"
+          style="display: none"
+        ></textarea>
+        <button id="btn" onclick="toggleSpeechAndVideo()" style="display: none">
+          🔉
+        </button>
+      </div>
+    </div>
+    <div id="loading">
+      <img
+        src="https://media.giphy.com/media/gJ3mEToTDJn3LT6kCT/giphy.gif"
+        alt="Loading..."
+      />
+    </div>
+    <p id="op" style="display: none">Summary:-</p>
+    <div id="result" style="display: none">
+      <ul id="summaryList" style="display: none"></ul>
+    </div>
+  </body>
+</html>
